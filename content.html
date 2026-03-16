@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>웹진 &lt;필화&gt; | 서울대 언론비평동아리 필화</title>
+    <meta
+      name="description"
+      content="서울대 언론비평동아리 필화 웹진 필화 페이지입니다."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="site-header.js"></script>
+  </head>
+  <body class="content-page">
+    <div class="site-shell">
+      <site-header current="webzine"></site-header>
+
+      <main>
+        <section class="section-block">
+          <div class="section-heading split-heading">
+            <h2>웹진 &lt;필화&gt;</h2>
+            <p class="section-meta" id="content-count">콘텐츠를 불러오는 중입니다.</p>
+          </div>
+          <div class="content-grid" id="content-list" aria-label="콘텐츠 목록">
+            <article class="content-grid-card content-grid-card--loading">
+              <p class="content-placeholder">콘텐츠를 불러오는 중입니다.</p>
+            </article>
+          </div>
+          <nav class="page-pagination" id="content-pagination" aria-label="콘텐츠 페이지 이동"></nav>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>서울대 언론비평동아리 필화</p>
+        <a href="mailto:pilhwa2016@gmail.com">pilhwa2016@gmail.com</a>
+      </footer>
+    </div>
+    <script type="module" src="content-page.js"></script>
+  </body>
+</html>

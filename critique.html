@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>한줄 비평 | 서울대 언론비평동아리 필화</title>
+    <meta
+      name="description"
+      content="서울대 언론비평동아리 필화 한줄 비평 페이지입니다."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="site-header.js"></script>
+    <script type="module" src="critique-page.js"></script>
+  </head>
+  <body>
+    <div class="site-shell narrow-shell">
+      <site-header current="critique"></site-header>
+
+      <main>
+        <section class="section-block">
+          <div class="section-heading split-heading">
+            <h2>한줄 비평</h2>
+            <p class="section-meta">기사 원문과 함께 짧게 남기는 비평 메모</p>
+          </div>
+          <div class="critique-grid" id="critique-list" aria-live="polite">
+            <article class="critique-card critique-card--loading">
+              <p class="content-placeholder">한줄 비평을 불러오는 중입니다.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>서울대 언론비평동아리 필화</p>
+        <a href="mailto:pilhwa2016@gmail.com">pilhwa2016@gmail.com</a>
+      </footer>
+    </div>
+  </body>
+</html>

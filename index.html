@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>서울대 언론비평동아리 필화</title>
+        <meta
+            name="description"
+            content="서울대 언론비평동아리 필화 홈페이지. 소개, 컨텐츠, 활동, 자료 메뉴로 이동할 수 있습니다."
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="styles.css" />
+        <script type="module" src="site-header.js"></script>
+    </head>
+    <body class="landing-page">
+        <div class="site-shell">
+            <site-header current="home"></site-header>
+
+            <main class="landing-main">
+                <section class="landing-carousel-section">
+                    <div class="landing-carousel-stage">
+                        <button
+                            class="carousel-button landing-carousel-nav landing-carousel-nav-prev"
+                            id="hero-carousel-prev"
+                            type="button"
+                            aria-label="이전 콘텐츠"
+                        >
+                            ←
+                        </button>
+                        <button
+                            class="carousel-button landing-carousel-nav landing-carousel-nav-next"
+                            id="hero-carousel-next"
+                            type="button"
+                            aria-label="다음 콘텐츠"
+                        >
+                            →
+                        </button>
+                        <div
+                            class="landing-carousel"
+                            id="featured-story"
+                            aria-live="polite"
+                        >
+                            <article class="landing-carousel-card is-loading">
+                                <p>콘텐츠를 불러오는 중입니다.</p>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="landing-carousel-meta-row">
+                        <span
+                            class="landing-carousel-pagination"
+                            id="hero-carousel-pagination"
+                            >0 / 0</span
+                        >
+                    </div>
+                </section>
+
+                <section class="landing-gallery-section">
+                    <div class="landing-gallery-strip" id="landing-gallery-strip">
+                        <p class="content-placeholder">사진을 불러오는 중입니다.</p>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="site-footer">
+                <p>서울대 언론비평동아리 필화</p>
+                <a href="mailto:pilhwa2016@gmail.com">pilhwa2016@gmail.com</a>
+            </footer>
+        </div>
+        <script type="module" src="landing-page.js"></script>
+    </body>
+</html>

@@ -1,0 +1,5 @@
+# 한줄 비평 항목 형식
+# - src: "https://example.com/article"
+#   comment: "짧은 비평 문장"
+- src: "https://www.mediaus.co.kr/news/articleView.html?idxno=316304"
+  comment: "명백히 주권국가에 대한 침략 전쟁에서, 침략자의 말을 받아쓰기 하는 것은 바람직하지 않습니다."

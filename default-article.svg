@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#E9EEF3"/>
+  <rect x="132" y="118" width="936" height="394" rx="32" fill="#F8FBFD" stroke="#C6D2DC" stroke-width="8"/>
+  <rect x="212" y="196" width="420" height="32" rx="16" fill="#A8B7C4"/>
+  <rect x="212" y="258" width="776" height="24" rx="12" fill="#C6D2DC"/>
+  <rect x="212" y="304" width="720" height="24" rx="12" fill="#D6E0E8"/>
+  <rect x="212" y="350" width="518" height="24" rx="12" fill="#D6E0E8"/>
+  <circle cx="920" cy="222" r="72" fill="#DCE6EE"/>
+  <path d="M920 178L939.798 214.205L980 221.393L951 250.046L956.596 290L920 272.205L883.404 290L889 250.046L860 221.393L900.202 214.205L920 178Z" fill="#A8B7C4"/>
+  <text x="212" y="447" fill="#6B7B8A" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="44" font-weight="700">ARTICLE PREVIEW</text>
+</svg>
