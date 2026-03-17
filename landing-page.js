@@ -2,51 +2,56 @@ import { contentUrl, formatDate, loadWebzineManifest } from "./site-content.js";
 
 const GALLERY_INDEX_PATH = "gallery/gallery.json";
 const GALLERY_PREVIEW_COUNT = 6;
+const FEATURED_ITEM_COUNT = 5;
 
-const carouselElement = document.querySelector("#featured-story");
-const paginationElement = document.querySelector("#hero-carousel-pagination");
-const prevButton = document.querySelector("#hero-carousel-prev");
-const nextButton = document.querySelector("#hero-carousel-next");
+const featuredElement = document.querySelector("#featured-story");
+const featuredPaginationElement = document.querySelector("#featured-story-pagination");
+const featuredPrevButton = document.querySelector("#featured-story-prev");
+const featuredNextButton = document.querySelector("#featured-story-next");
 const galleryStripElement = document.querySelector("#landing-gallery-strip");
-
-let items = [];
-let currentIndex = 0;
+let featuredItems = [];
+let currentFeaturedIndex = 0;
+let featuredScrollFrame = 0;
 
 async function initLandingPage() {
-  if (!carouselElement && !galleryStripElement) {
+  if (!featuredElement && !galleryStripElement) {
     return;
   }
 
-  prevButton?.addEventListener("click", () => move(-1));
-  nextButton?.addEventListener("click", () => move(1));
+  featuredPrevButton?.addEventListener("click", () => moveFeatured(-1));
+  featuredNextButton?.addEventListener("click", () => moveFeatured(1));
+  featuredElement?.addEventListener("scroll", handleFeaturedScroll, { passive: true });
 
   void initGalleryStrip();
 
-  if (!carouselElement) {
+  if (!featuredElement) {
     return;
   }
 
   try {
-    items = await loadWebzineManifest();
+    const items = await loadWebzineManifest();
+    featuredItems = items.slice(0, FEATURED_ITEM_COUNT);
 
-    if (!items.length) {
-      carouselElement.innerHTML = "";
-      updatePagination();
-      toggleButtons();
+    if (!featuredItems.length) {
+      featuredElement.innerHTML = "";
+      updateFeaturedPagination();
+      toggleFeaturedButtons();
       return;
     }
 
-    renderCurrentItem();
-    updatePagination();
-    toggleButtons();
+    featuredElement.innerHTML = featuredItems
+      .map((item, index) => renderFeaturedItem(item, index))
+      .join("");
+    currentFeaturedIndex = 0;
+    syncFeaturedCarousel();
   } catch (error) {
-    carouselElement.innerHTML = `
-      <article class="landing-carousel-card is-loading">
+    featuredElement.innerHTML = `
+      <article class="landing-featured-card is-loading">
         <p>${escapeHtml(error.message)}</p>
       </article>
     `;
-    updatePagination(true);
-    toggleButtons(true);
+    updateFeaturedPagination();
+    toggleFeaturedButtons(true);
   }
 }
 
@@ -69,36 +74,26 @@ async function initGalleryStrip() {
   }
 }
 
-function move(direction) {
-  if (!items.length) {
-    return;
-  }
+function renderFeaturedItem(item, index) {
+  const cardClassName =
+    index === 0 ? "landing-featured-card is-primary" : "landing-featured-card";
+  const summary = item.summary || "본문 요약이 아직 준비되지 않았습니다.";
 
-  currentIndex = (currentIndex + direction + items.length) % items.length;
-  renderCurrentItem();
-  updatePagination();
-}
-
-function renderCurrentItem() {
-  const item = items[currentIndex];
-  if (!item) {
-    return;
-  }
-
-  carouselElement.innerHTML = `
-    <article class="landing-carousel-card">
-      <a class="landing-carousel-link" href="${contentUrl(item.slug)}">
-        <div class="landing-carousel-media">
+  return `
+    <article class="${cardClassName}" data-featured-index="${index}">
+      <a class="landing-featured-link" href="${contentUrl(item.slug)}">
+        <div class="landing-featured-media">
           ${
             item.cover
               ? `<img src="${item.cover}" alt="${escapeHtml(item.title)} 대표 이미지" />`
-              : `<div class="landing-carousel-fallback"></div>`
+              : `<div class="landing-featured-fallback"></div>`
           }
         </div>
-        <div class="landing-carousel-body">
+        <div class="landing-featured-body">
+          <p class="landing-kicker">Webzine</p>
           <h2>${escapeHtml(item.title)}</h2>
-          <p>${escapeHtml(item.summary)}</p>
-          <div class="landing-carousel-meta">
+          <p class="landing-featured-summary">${escapeHtml(summary)}</p>
+          <div class="landing-featured-meta">
             <span>${escapeHtml(item.author)}</span>
             <span>${formatDate(item.date)}</span>
           </div>
@@ -108,27 +103,94 @@ function renderCurrentItem() {
   `;
 }
 
-function updatePagination(hasError = false) {
-  if (!paginationElement) {
+function moveFeatured(direction) {
+  if (featuredItems.length <= 1 || !featuredElement) {
     return;
   }
 
-  if (hasError || !items.length) {
-    paginationElement.textContent = "0 / 0";
-    return;
-  }
-
-  paginationElement.textContent = `${currentIndex + 1} / ${items.length}`;
+  currentFeaturedIndex =
+    (currentFeaturedIndex + direction + featuredItems.length) % featuredItems.length;
+  syncFeaturedCarousel({ behavior: "smooth" });
 }
 
-function toggleButtons(forceDisable = false) {
-  const disabled = forceDisable || items.length <= 1;
-  if (prevButton) {
-    prevButton.disabled = disabled;
+function syncFeaturedCarousel(options = {}) {
+  updateFeaturedPagination();
+  toggleFeaturedButtons();
+  updateFeaturedActiveState();
+
+  if (!featuredElement) {
+    return;
   }
-  if (nextButton) {
-    nextButton.disabled = disabled;
+
+  const card = featuredElement.querySelector(`[data-featured-index="${currentFeaturedIndex}"]`);
+  if (!card) {
+    return;
   }
+
+  featuredElement.scrollTo({
+    left: card.offsetLeft,
+    behavior: options.behavior || "auto",
+  });
+}
+
+function updateFeaturedPagination() {
+  if (!featuredPaginationElement) {
+    return;
+  }
+
+  if (!featuredItems.length) {
+    featuredPaginationElement.textContent = "0 / 0";
+    return;
+  }
+
+  featuredPaginationElement.textContent = `${currentFeaturedIndex + 1} / ${featuredItems.length}`;
+}
+
+function toggleFeaturedButtons(forceDisable = false) {
+  const disabled = forceDisable || featuredItems.length <= 1;
+  if (featuredPrevButton) {
+    featuredPrevButton.disabled = disabled;
+  }
+  if (featuredNextButton) {
+    featuredNextButton.disabled = disabled;
+  }
+}
+
+function updateFeaturedActiveState() {
+  featuredElement?.querySelectorAll("[data-featured-index]").forEach((card, index) => {
+    card.classList.toggle("is-active", index === currentFeaturedIndex);
+  });
+}
+
+function handleFeaturedScroll() {
+  if (!featuredElement || !featuredItems.length) {
+    return;
+  }
+
+  if (featuredScrollFrame) {
+    cancelAnimationFrame(featuredScrollFrame);
+  }
+
+  featuredScrollFrame = requestAnimationFrame(() => {
+    featuredScrollFrame = 0;
+    const cards = Array.from(featuredElement.querySelectorAll("[data-featured-index]"));
+    if (!cards.length) {
+      return;
+    }
+
+    const currentScrollLeft = featuredElement.scrollLeft;
+    const nextIndex = cards.reduce((closestIndex, card, index) => {
+      const closestDistance = Math.abs(cards[closestIndex].offsetLeft - currentScrollLeft);
+      const currentDistance = Math.abs(card.offsetLeft - currentScrollLeft);
+      return currentDistance < closestDistance ? index : closestIndex;
+    }, 0);
+
+    if (nextIndex !== currentFeaturedIndex) {
+      currentFeaturedIndex = nextIndex;
+      updateFeaturedPagination();
+      updateFeaturedActiveState();
+    }
+  });
 }
 
 async function loadGalleryPreview() {

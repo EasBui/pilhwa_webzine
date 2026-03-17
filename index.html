@@ -22,40 +22,43 @@
             <site-header current="home"></site-header>
 
             <main class="landing-main">
-                <section class="landing-carousel-section">
-                    <div class="landing-carousel-stage">
-                        <button
-                            class="carousel-button landing-carousel-nav landing-carousel-nav-prev"
-                            id="hero-carousel-prev"
-                            type="button"
-                            aria-label="이전 콘텐츠"
+                <section class="landing-featured-section">
+                    <div class="landing-section-head">
+                        <p class="landing-kicker">Latest</p>
+                        <h1>최근 웹진</h1>
+                        <p class="landing-section-copy">
+                            필화의 최신 글을 한눈에 볼 수 있도록 다시 정리했습니다.
+                        </p>
+                    </div>
+                    <div class="landing-featured-controls">
+                        <span class="landing-featured-pagination" id="featured-story-pagination"
+                            >0 / 0</span
                         >
-                            ←
-                        </button>
-                        <button
-                            class="carousel-button landing-carousel-nav landing-carousel-nav-next"
-                            id="hero-carousel-next"
-                            type="button"
-                            aria-label="다음 콘텐츠"
-                        >
-                            →
-                        </button>
-                        <div
-                            class="landing-carousel"
-                            id="featured-story"
-                            aria-live="polite"
-                        >
-                            <article class="landing-carousel-card is-loading">
+                        <div class="landing-featured-nav">
+                            <button
+                                class="carousel-button landing-featured-nav-button"
+                                id="featured-story-prev"
+                                type="button"
+                                aria-label="이전 웹진 카드"
+                            >
+                                ←
+                            </button>
+                            <button
+                                class="carousel-button landing-featured-nav-button"
+                                id="featured-story-next"
+                                type="button"
+                                aria-label="다음 웹진 카드"
+                            >
+                                →
+                            </button>
+                        </div>
+                    </div>
+                    <div class="landing-featured-carousel">
+                        <div class="landing-featured-track" id="featured-story" aria-live="polite">
+                            <article class="landing-featured-card is-loading">
                                 <p>콘텐츠를 불러오는 중입니다.</p>
                             </article>
                         </div>
-                    </div>
-                    <div class="landing-carousel-meta-row">
-                        <span
-                            class="landing-carousel-pagination"
-                            id="hero-carousel-pagination"
-                            >0 / 0</span
-                        >
                     </div>
                 </section>
 
