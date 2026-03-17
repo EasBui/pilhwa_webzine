@@ -1823,6 +1823,16 @@ body.calendar-modal-open {
     padding: 24px 20px;
   }
 
+  .landing-carousel-stage,
+  .landing-carousel,
+  .landing-carousel-card,
+  .landing-carousel-link,
+  .landing-carousel-media,
+  .landing-carousel-body {
+    width: 100%;
+    min-width: 0;
+  }
+
   .landing-carousel,
   .landing-carousel-card,
   .landing-carousel-link {
