@@ -1458,10 +1458,6 @@ body.calendar-modal-open {
   background: linear-gradient(transparent 55%, rgba(21, 76, 121, 0.16) 55%);
 }
 
-body.landing-page {
-  background: #f4f4f1;
-}
-
 .landing-main {
   margin-top: 28px;
   display: grid;
